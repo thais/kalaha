@@ -38,7 +38,7 @@ class GameControllerTest {
     }
 
     @Test
-    fun `should return bad request when body is missing`() {
+    fun `Should return bad request when body is missing`() {
         mockMvc.post("/games") {
             contentType = APPLICATION_JSON
         }.andExpect {
@@ -47,7 +47,7 @@ class GameControllerTest {
     }
 
     @Test
-    fun `should return bad request when less than two player provided`() {
+    fun `Should return bad request when less than two player provided`() {
         mockMvc.post("/games") {
             content = asJson(createGameWithXPlayer(1))
             contentType = APPLICATION_JSON
@@ -57,7 +57,7 @@ class GameControllerTest {
     }
 
     @Test
-    fun `should return bad request when more than two players provided`() {
+    fun `Should return bad request when more than two players provided`() {
         mockMvc.post("/games") {
             content = asJson(createGameWithXPlayer(3))
             contentType = APPLICATION_JSON
@@ -67,7 +67,7 @@ class GameControllerTest {
     }
 
     @Test
-    fun `should return unsupported media type when content type not json`() {
+    fun `Should return unsupported media type when content type not json`() {
         mockMvc.post("/games") {
             content = asJson(createValidGame())
             contentType = APPLICATION_OCTET_STREAM
