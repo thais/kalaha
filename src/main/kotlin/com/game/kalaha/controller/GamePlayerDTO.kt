@@ -1,5 +1,5 @@
 package com.game.kalaha.controller
 
-class GamePlayerDTO {
+import java.util.UUID
 
-}
+data class GamePlayerDTO(val id: UUID)

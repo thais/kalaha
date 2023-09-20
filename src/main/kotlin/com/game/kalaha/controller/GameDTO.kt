@@ -1,5 +1,4 @@
 package com.game.kalaha.controller
 
-class GameDTO {
 
-}
+class GameDTO (val players: List<GamePlayerDTO>)
