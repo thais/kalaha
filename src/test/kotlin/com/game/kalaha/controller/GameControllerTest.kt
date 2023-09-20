@@ -22,7 +22,7 @@ class GameControllerTest {
     @Autowired
     lateinit var objectMapper: ObjectMapper
     @Test
-    fun `should create game when all parameters are valid`() {
+    fun `Should create game when all parameters are valid`() {
         mockMvc.post("/games") {
             content = asJson(createValidGame())
             contentType = APPLICATION_JSON

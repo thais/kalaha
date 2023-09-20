@@ -33,4 +33,15 @@ class GameServiceTest {
         assertThat(exception.message).isEqualTo("You need 2 players to start a game")
     }
 
+    @Test
+    fun `Should not create a game with over two player` () {
+        val service = GameService()
+
+        val exception = assertThrows<GameCreationException> {
+            service.create(GameDTO(IntRange(0,2).map { GamePlayerDTO(UUID.randomUUID()) }))
+        }
+
+        assertThat(exception.message).isEqualTo("You need 2 players to start a game")
+    }
+
 }

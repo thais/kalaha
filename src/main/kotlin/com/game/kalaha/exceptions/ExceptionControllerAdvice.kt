@@ -1,6 +1,5 @@
-package com.game.kalaha.controller
+package com.game.kalaha.exceptions
 
-import com.game.kalaha.exceptions.GameCreationException
 import org.springframework.http.HttpStatus.BAD_REQUEST
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -9,14 +8,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 @ControllerAdvice
 class ExceptionControllerAdvice {
 
-    @ExceptionHandler(GameCreationException::class)
-    fun handleGameCreationException(ex: GameCreationException): ResponseEntity<ErrorMessage> {
+    @ExceptionHandler(GameCreationException::class, IllegalMoveException::class)
+    fun handleGameCreationException(ex: Exception): ResponseEntity<ErrorMessage> {
         val errorMessage = ErrorMessage(
             BAD_REQUEST.value(),
             ex.message
         )
         return ResponseEntity(errorMessage, BAD_REQUEST)
     }
+
 
 }
 
