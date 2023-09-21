@@ -1,6 +1,6 @@
 package com.game.kalaha.service
 
-import com.game.kalaha.controller.GameDTO
+import com.game.kalaha.model.dto.GameDTO
 import com.game.kalaha.exceptions.GameCreationException
 import com.game.kalaha.model.Board
 import com.game.kalaha.model.Game

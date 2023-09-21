@@ -1,7 +1,7 @@
 package com.game.kalaha.service
 
-import com.game.kalaha.controller.GameDTO
-import com.game.kalaha.controller.GamePlayerDTO
+import com.game.kalaha.model.dto.GameDTO
+import com.game.kalaha.model.dto.GamePlayerDTO
 import com.game.kalaha.exceptions.GameCreationException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -10,7 +10,7 @@ import java.util.*
 
 class GameServiceTest {
     @Test
-    fun `Should create a valid game when it receives the right parameters` () {
+    fun `Should create a valid game when it receives the right parameters`() {
         val service = GameService()
         val firstPlayer = GamePlayerDTO(UUID.randomUUID())
         val secondPlayer = GamePlayerDTO(UUID.randomUUID())
@@ -22,7 +22,7 @@ class GameServiceTest {
     }
 
     @Test
-    fun `Should not create a game with just one player` () {
+    fun `Should not create a game with just one player`() {
         val service = GameService()
         val firstPlayer = GamePlayerDTO(UUID.randomUUID())
 
@@ -34,11 +34,11 @@ class GameServiceTest {
     }
 
     @Test
-    fun `Should not create a game with over two player` () {
+    fun `Should not create a game with over two player`() {
         val service = GameService()
 
         val exception = assertThrows<GameCreationException> {
-            service.create(GameDTO(IntRange(0,2).map { GamePlayerDTO(UUID.randomUUID()) }))
+            service.create(GameDTO(IntRange(0, 2).map { GamePlayerDTO(UUID.randomUUID()) }))
         }
 
         assertThat(exception.message).isEqualTo("You need 2 players to start a game")

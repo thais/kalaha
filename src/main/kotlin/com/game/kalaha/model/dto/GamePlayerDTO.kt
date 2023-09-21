@@ -1,4 +1,4 @@
-package com.game.kalaha.controller
+package com.game.kalaha.model.dto
 
 import java.util.UUID
 

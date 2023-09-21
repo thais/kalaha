@@ -16,7 +16,11 @@ class Board () {
 
     fun state() = pits.clone()
 
+
     fun move(i: Int) : Array<Pit> {
+        if (i == 0 || i == 7) {
+            throw IllegalMoveException("You cannot move storage houses")
+        }
         if (pits[i].seeds == 0) {
             throw IllegalMoveException("You cannot move empty houses")
         }
@@ -30,6 +34,16 @@ class Board () {
             next++
         }
         return state()
+    }
+
+    //TODO Review board
+    fun print(): String {
+        var boardStatus = """
+            [${pits[13].seeds}][${pits[12].seeds}][${pits[11].seeds}][${pits[10].seeds}][${pits[9].seeds}][${pits[8].seeds}]
+           (${pits[0].seeds})                  (${pits[7].seeds})
+              [${pits[1].seeds}][${pits[2].seeds}][${pits[3].seeds}][${pits[4].seeds}][${pits[5].seeds}][${pits[6].seeds}]
+        """.trimIndent()
+        return boardStatus
     }
 
 }

@@ -1,6 +1,8 @@
 package com.game.kalaha.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.game.kalaha.model.dto.GameDTO
+import com.game.kalaha.model.dto.GamePlayerDTO
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -21,6 +23,7 @@ class GameControllerTest {
 
     @Autowired
     lateinit var objectMapper: ObjectMapper
+
     @Test
     fun `Should create game when all parameters are valid`() {
         mockMvc.post("/games") {

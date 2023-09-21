@@ -7,9 +7,6 @@ import org.junit.jupiter.api.assertThrows
 
 class BoardTest {
 
-    //   13 12 11 10 9 8
-    // [0]          [7]
-    //   1 2 3 4 5 6
     @Test
     fun `Should create a board with empty stores and pits with 6 seeds`() {
         val board = Board()
@@ -45,10 +42,6 @@ class BoardTest {
         assertThat(exception.message).isEqualTo("You cannot move empty houses")
     }
 
-    //   13 12 11 10 9 8
-    // [0]          [7]
-    //   1 2 3 4 5 6
-
     @Test
     fun `Should move counterclockwise to beginning of the list when it finishes`() {
 
@@ -64,16 +57,28 @@ class BoardTest {
     }
 
     @Test
-    fun `Should ignore opposite store`() {
+    fun `Throws an exception when selecting a store`() {
 
-        val board = Board().move(12)
+        var board = Board()
 
-        assertThat(board[12].seeds).isEqualTo(0)
-        assertThat(board[13].seeds).isEqualTo(7)
-        assertThat(board[0].seeds).isEqualTo(1)
-        assertThat(board[1].seeds).isEqualTo(7)
-        assertThat(board[2].seeds).isEqualTo(7)
-        assertThat(board[3].seeds).isEqualTo(7)
-        assertThat(board[4].seeds).isEqualTo(7)
+        val exception = assertThrows<IllegalMoveException> {
+            board.move(0)
+            board.move(7)
+        }
+
+        assertThat(exception.message).isEqualTo("You cannot move storage houses")
+    }
+
+    @Test
+    fun `Should print the current state of the List`() {
+        var current = """
+            [6][6][6][6][6][6]
+           (0)                  (0)
+              [6][6][6][6][6][6]
+        """.trimIndent()
+
+        val printedBoard = Board().print()
+
+        assertThat(printedBoard).isEqualTo(current)
     }
 }
