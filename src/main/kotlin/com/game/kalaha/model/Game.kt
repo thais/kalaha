@@ -1,10 +1,11 @@
 package com.game.kalaha.model
 
 import com.game.kalaha.model.response.GameResponse
+import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 import java.util.*
 
-
+@Document(collection = "Game")
 class Game(
     val id: UUID,
     var status: Status,

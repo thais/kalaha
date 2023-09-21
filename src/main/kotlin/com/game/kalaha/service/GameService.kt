@@ -6,12 +6,14 @@ import com.game.kalaha.model.Board
 import com.game.kalaha.model.Game
 import com.game.kalaha.model.Player
 import com.game.kalaha.model.Status.CREATED
+import com.game.kalaha.repository.GameRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
 @Service
-class GameService {
+class GameService (@Autowired val gameRepository: GameRepository) {
     fun create(game: GameDTO): Game {
         //TODO extract message to a message properties file
         if (game.players.size != 2) {
@@ -19,15 +21,15 @@ class GameService {
         }
 
         parsePlayers(game)
-
-        return Game(
+        val asd =gameRepository.save(Game(
             id = UUID.randomUUID(),
             status = CREATED,
             players = parsePlayers(game),
             createdAt = LocalDateTime.now(),
             board = Board(),
             result = ""
-        )
+        ))
+        return asd
     }
 
     private fun parsePlayers(game: GameDTO): List<Player> = game.players.map { Player(it.id, "name") }
