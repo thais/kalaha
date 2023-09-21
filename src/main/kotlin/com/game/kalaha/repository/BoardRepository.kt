@@ -1,4 +1,9 @@
 package com.game.kalaha.repository
 
-interface BoardRepository {
+import com.game.kalaha.model.Board
+import org.springframework.data.mongodb.repository.MongoRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+interface BoardRepository: MongoRepository<Board, Long> {
 }

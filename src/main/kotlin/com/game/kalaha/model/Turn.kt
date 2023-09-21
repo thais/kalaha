@@ -1,5 +1,5 @@
 package com.game.kalaha.model
 
-class Turn {
+class Turn(var round: Int, var player: Player) {
 
 }

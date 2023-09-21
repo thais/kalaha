@@ -1,10 +1,9 @@
 package com.game.kalaha.model
 
 import com.game.kalaha.exceptions.IllegalMoveException
-import org.springframework.data.mongodb.core.mapping.Document
-@Document
-class Board () {
-    private var pits = Array(14) { Pit(6) }
+
+class Board {
+    var pits = Array(14) { Pit(6) }
     init {
         pits[0] = Pit(0)
         pits[7] = Pit(0)

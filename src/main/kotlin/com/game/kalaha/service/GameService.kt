@@ -2,34 +2,56 @@ package com.game.kalaha.service
 
 import com.game.kalaha.model.dto.GameDTO
 import com.game.kalaha.exceptions.GameCreationException
-import com.game.kalaha.model.Board
-import com.game.kalaha.model.Game
-import com.game.kalaha.model.Player
+import com.game.kalaha.model.*
 import com.game.kalaha.model.Status.CREATED
+import com.game.kalaha.model.dto.MoveDTO
+import com.game.kalaha.repository.BoardRepository
 import com.game.kalaha.repository.GameRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
-import java.util.*
 
 @Service
-class GameService (@Autowired val gameRepository: GameRepository) {
-    fun create(game: GameDTO): Game {
+class GameService (@Autowired val gameRepository: GameRepository,
+    @Autowired val boardRepository: BoardRepository) {
+    fun create(gameDTO: GameDTO): Game {
         //TODO extract message to a message properties file
-        if (game.players.size != 2) {
+        if (gameDTO.players.size != 2) {
             throw GameCreationException("You need 2 players to start a game")
         }
 
-        parsePlayers(game)
-        val asd =gameRepository.save(Game(
-            id = UUID.randomUUID(),
+        val board = boardRepository.save(Board())
+
+        val players = parsePlayers(gameDTO)
+        val game = Game(                                                                                                                                         
             status = CREATED,
-            players = parsePlayers(game),
             createdAt = LocalDateTime.now(),
-            board = Board(),
-            result = ""
-        ))
-        return asd
+            players = players,
+            board = board,
+            turn = players[0].id)
+
+        return gameRepository.save(game)
+    }
+
+    //TODO PAGINATION
+    fun getAll() : List<Game> {
+        val findAll = gameRepository.findAll()
+        return findAll
+    }
+
+    fun getById(id: Long) : Game {
+        return gameRepository.findById(id).orElseThrow { throw NotFoundException() }
+    }
+    
+    fun move(move: MoveDTO, id:Long) : Game {
+        var game = getById(id)
+        if (game.turn == move.player) {
+            game.board.move(move.pit)
+            gameRepository.save(game)
+        }
+
+        return game
     }
 
     private fun parsePlayers(game: GameDTO): List<Player> = game.players.map { Player(it.id, "name") }
