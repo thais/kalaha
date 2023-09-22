@@ -12,6 +12,8 @@ class Board {
     //   13 12 11 10 9 8
     // [0]          [7]
     //   1 2 3 4 5 6
+    // 0 - 6 player 1 pits
+    // 7-13 player 2 pits
 
     fun state() = pits.clone()
 

@@ -1,5 +1,5 @@
 package com.game.kalaha.exceptions
 
-class MoveNotAllowed : Throwable() {
+class MoveNotAllowedException(message: String) : Exception(message)
 
-}
+
